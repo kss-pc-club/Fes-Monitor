@@ -32,14 +32,14 @@ body div.dateCon {
   grid-area: time;
   width: 100%;
   height: 32px;
-  padding: 0px 8px;
+  padding: 0 8px;
   font-size: calc(32px / 1.5);
   text-align: right;
 }
 
 body div.dateCon p {
   display: inline-block;
-  margin: 0px 8px;
+  margin: 0 8px;
 }
 
 body div.pages {
@@ -80,8 +80,8 @@ body div.pages div.page.showing div.section {
       grid-template-columns: repeat(2, 50%);
   padding: 8px;
   border-radius: 10px;
-  -webkit-box-shadow: inset 0px 0px 10px 0px #aaa;
-          box-shadow: inset 0px 0px 10px 0px #aaa;
+  -webkit-box-shadow: inset 0 0 10px 0 #aaa;
+          box-shadow: inset 0 0 10px 0 #aaa;
   gap: 1%;
   --size: calc(((100vh - 122px) * 0.48) / 1.5);
 }
@@ -221,8 +221,8 @@ body div.pages div.page.showing div.section div.icons img {
   padding: 3px;
   margin: auto;
   border-radius: 30%;
-  -webkit-box-shadow: 0px 0px 5px 0px #aaa;
-          box-shadow: 0px 0px 5px 0px #aaa;
+  -webkit-box-shadow: 0 0 5px 0 #aaa;
+          box-shadow: 0 0 5px 0 #aaa;
 }
 
 body div.pages div.page.showing div.section div.icons img[data-status="op"] + p::before {
@@ -303,8 +303,8 @@ body div.scrollBall div.bContainer div.ball {
   margin: 8px 8px;
   background-color: #fff;
   border-radius: 4px;
-  -webkit-box-shadow: 0px 0px 4px 0px #666;
-          box-shadow: 0px 0px 4px 0px #666;
+  -webkit-box-shadow: 0 0 4px 0 #666;
+          box-shadow: 0 0 4px 0 #666;
   -webkit-transition: 1s;
   transition: 1s;
 }
@@ -313,12 +313,39 @@ body div.scrollBall div.bContainer div.ball.showing {
   background-color: #aaa;
 }
 
-body marquee {
+body p.marquee {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: news;
   width: 100%;
   height: 36px;
   font-size: 24px;
+  display: inline-block;
+  margin: 0;
+  overflow-x: hidden;
+  -webkit-animation: marquee_anime 15s linear infinite;
+          animation: marquee_anime 15s linear infinite;
+}
+
+@-webkit-keyframes marquee_anime {
+  0% {
+    -webkit-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+  }
+  100% {
+    -webkit-transform: translate(-10%, 0);
+            transform: translate(-10%, 0);
+  }
+}
+
+@keyframes marquee_anime {
+  0% {
+    -webkit-transform: translate(100%, 0);
+            transform: translate(100%, 0);
+  }
+  100% {
+    -webkit-transform: translate(-10%, 0);
+            transform: translate(-10%, 0);
+  }
 }
 /*# sourceMappingURL=main.css.map */

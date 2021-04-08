@@ -243,10 +243,19 @@ body{
     }
   }
 
-  marquee{
+  p.marquee{
     grid-area: news;
     width: 100%;
     height: 36px;
     font-size: 24px;
+    display: inline-block;
+    margin: 0;
+    overflow-x: hidden;
+    animation: marquee_anime 15s linear infinite;
   }
+}
+
+@keyframes marquee_anime {
+  0%{ transform: translate(100%, 0); }
+  100%{ transform: translate(-10%, 0); }
 }
