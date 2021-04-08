@@ -12,7 +12,8 @@
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "*.ts, *.tsx": [
+    "*.(ts,tsx)": [
+      "tsc --noEmit",
       "eslint --fix"
     ],
     "*.scss": [
