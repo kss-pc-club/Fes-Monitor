@@ -1,11 +1,9 @@
-import { init } from "./react";
-import { slide } from "./slide";
-import { nowTimer } from "./timer";
-// import { WebSoc } from "./ws";
+import { loadData } from './firebase'
+import { slide } from './slide'
+import { nowTimer } from './timer'
 
-window.addEventListener('load',()=>{
-  init();
-  setInterval(nowTimer,100);
-  setInterval(slide,10000);
-  // new WebSoc()
+window.addEventListener('load', () => {
+  loadData()
+  setInterval(nowTimer, 100)
+  setInterval(slide, 10000)
 })
