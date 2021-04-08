@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { dataJsonType, IconInfo } from './type';
 
-import { dataJsonType, IconInfo } from './type'
+const notFoodMap = {op:"no",sh:"pa",so:"en"};
 
 class Icons extends React.Component<dataJsonType, Record<string, unknown>> {
-  icon(i: IconInfo) {
+  icon(i: IconInfo, f: boolean) {
     return (
       <div className="icons" data-num={i.length}>
         {i.map((ico) => {
@@ -12,7 +13,7 @@ class Icons extends React.Component<dataJsonType, Record<string, unknown>> {
               <img
                 className="icon"
                 src={'./icons/' + ico.src + '.png'}
-                data-status={ico.status}
+                data-status={f?ico.status:notFoodMap[ico.status]}
               />
               <p></p>
             </div>
@@ -22,7 +23,7 @@ class Icons extends React.Component<dataJsonType, Record<string, unknown>> {
     )
   }
   render() {
-    return this.icon(this.props.icons)
+    return this.icon(this.props.icons, this.props.isFood)
   }
 }
 
@@ -30,7 +31,7 @@ class ColumnContainer extends Icons {
   render() {
     let e
     if (this.props.icons.length !== 0) {
-      e = this.icon(this.props.icons)
+      e = this.icon(this.props.icons, this.props.isFood)
     }
     return (
       <div className="section" data-cls={this.props.class}>
@@ -52,6 +53,7 @@ function Render(json: { j: dataJsonType[] }) {
         name={c.name}
         time={c.time}
         icons={c.icons}
+        isFood={c.isFood}
       />
     )
   })
@@ -59,8 +61,5 @@ function Render(json: { j: dataJsonType[] }) {
   return <>{Columns}</>
 }
 
-function RenderIco(icons: { i: IconInfo }) {
-  return <Icons icons={icons.i} class="" name="" time="" />
-}
+export { Render };
 
-export { Render, RenderIco }

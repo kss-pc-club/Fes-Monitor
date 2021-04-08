@@ -1,6 +1,9 @@
+type TimeUnitsType = 'h' | 'm' | 's'
+type StatusType = 'op' | 'sh' | 'so'
+
 type IconInfo = {
   src: string
-  status: string
+  status: StatusType
 }[]
 
 type dataJsonType = {
@@ -8,11 +11,12 @@ type dataJsonType = {
   name: string
   time: string
   icons: IconInfo
+  isFood: boolean
 }
 
 type menuInfoType = {
   icon: string
-  status: string
+  status: StatusType
 }
 
 type ClassDataSnapshotType = {
@@ -24,7 +28,7 @@ type ClassDataSnapshotType = {
     people: number
     price: number
     proceed: number
-    status: string
+    status: StatusType
   }[]
   name: string
   payProceeds: number
@@ -32,12 +36,11 @@ type ClassDataSnapshotType = {
   time: string
 }
 
-type TimeUnitsType = 'h' | 'm' | 's'
-
 export {
   dataJsonType,
   IconInfo,
   TimeUnitsType,
   menuInfoType,
   ClassDataSnapshotType,
+  StatusType,
 }

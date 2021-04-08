@@ -1,3 +1,4 @@
+//----- Firebase関連の処理 -----//
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import $ from 'jquery'
@@ -9,12 +10,13 @@ firebase.initializeApp(firebaseConfig)
 
 const database = firebase.firestore()
 
+// 各クラスの模擬店情報
 class ClassData {
-  class: string
-  name: string
-  isFood: boolean
-  menus: menuInfoType[]
-  time: string
+  class: string  // クラス名・部活名
+  name: string  // 模擬店名
+  isFood: boolean  // 食販かどうか
+  menus: menuInfoType[]  // メニュー
+  time: string  // 待ち時間
 
   constructor(
     cls: string,
@@ -24,8 +26,8 @@ class ClassData {
     time: string
   ) {
     menus = menus.map((menu) => ({
-      icon: menu.icon,
-      status: menu.status,
+      icon: menu.icon,  // アイコンパス
+      status: menu.status,  // ステータス（op,sh,soのどれか）
     }))
 
     this.class = cls
@@ -43,6 +45,7 @@ class ClassData {
         src: menu.icon,
         status: menu.status,
       })),
+      isFood: this.isFood
     }
   }
 }
