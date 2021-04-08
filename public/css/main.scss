@@ -1,0 +1,252 @@
+@import url("https://fonts.googleapis.com/css?family=Kosugi+Maru|M+PLUS+Rounded+1c|Noto+Sans+JP|Poppins|Sawarabi+Mincho&display=swap");
+
+*{
+  box-sizing: border-box;
+  font-family: "Poppins", "Kosugi Maru", "M PLUS Rounded 1c", "Noto Sans Japanese", sans-serif;
+  font-weight: 300;
+}
+
+html{
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  display: grid;
+  grid-template-areas: "pages" "ball" "news" "time";
+  grid-template-rows: 1fr 36px 36px 32px;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  gap: 6px;
+
+
+  div.dateCon{
+    grid-area: time;
+    width: 100%;
+    height: 32px;
+    padding: 0 8px;
+    font-size: calc(32px / 1.5);
+    text-align: right;
+
+    p{
+      display: inline-block;
+      margin: 0 8px;
+    }
+  }
+
+  div.pages{
+    position: relative;
+    grid-area: pages;
+
+    div.page{
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+
+      &.showing{
+        display: grid;
+        grid-template-areas: ". . ." ". . .";
+        grid-template-rows: repeat(2, 48%);
+        grid-template-columns: repeat(3, calc(98% / 3));
+        width: 100%;
+        height: 100%;
+        padding: 1%;
+        gap: 1%;
+
+        div.section{
+          display: grid;
+          grid-template-areas: "cls cls" "shop shop" "time ico";
+          grid-template-rows: 10% 40% 48%;
+          grid-template-columns: repeat(2,50%);
+          padding: 8px;
+          border-radius: 10px;
+          box-shadow: inset 0 0 10px 0 #aaa;
+          gap: 1%;
+
+          --size: calc(((100vh - 122px) * 0.48) / 1.5);
+
+          p{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            text-align: center;
+          }
+
+          p.cls{
+            grid-area: cls;
+            font-size: calc(var(--size) * 0.10);
+          }
+
+          p.shop{
+            grid-area: shop;
+            font-size: calc(var(--size) * 0.15);
+            white-space: pre-wrap;
+          }
+
+          p.time{
+            grid-area: time;
+            font-size: calc(var(--size) * 0.30);
+
+            &::after{
+              display: block;
+              margin-right: 20px;
+              font-size: calc(var(--size) * 0.10);
+              text-align: right;
+              content: "分待ち";
+            }
+          }
+
+          div.icons{
+            display: grid;
+            grid-area: ico;
+            width: 100%;
+            height: 100%;
+            gap: 12px;
+
+            div:nth-child(1){ grid-area: i1; }
+
+            div:nth-child(2){ grid-area: i2; }
+
+            div:nth-child(3){ grid-area: i3; }
+
+            div:nth-child(4){ grid-area: i4; }
+
+            div:nth-child(5){ grid-area: i5; }
+
+            --row: calc(var(--size) * 0.30);
+            --col: calc(var(--size) * 0.19);
+
+            &[data-num="1"]{
+              grid-template-areas: ". . ." ". i1 ." ". . .";
+              grid-template-rows: 1fr var(--row) 1fr;
+              grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            &[data-num="2"]{
+              grid-template-areas: ". ." "i1 i2" ". .";
+              grid-template-rows: 1fr var(--row) 1fr;
+              grid-template-columns: 1fr  1fr;
+            }
+
+            &[data-num="3"]{
+              grid-template-areas: ". . . . ." "i1 i1 . i2 i2" ". i3 i3 i3 ." ". . . . .";
+              grid-template-rows: 1fr var(--row) var(--row) 1fr;
+              grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+            }
+
+            &[data-num="4"]{
+              grid-template-areas: ". ." "i1 i2" "i3 i4" " . .";
+              grid-template-rows: 1fr var(--row) var(--row) 1fr;
+              grid-template-columns: 1fr 1fr;
+            }
+
+            &[data-num="5"]{
+              grid-template-areas: ". . . . . ." "i1 i1 i2 i2 i3 i3" ". i4 i4 i5 i5 ." ". . . . . .";
+              grid-template-rows: 1fr var(--row) var(--row) 1fr;
+              grid-template-columns: repeat(6, 1fr);
+            }
+
+            img{
+              display: block;
+              width: var(--col);
+              max-width: 100%;
+              height: var(--col);
+              padding: 3px;
+              margin: auto;
+              border-radius: 30%;
+              box-shadow: 0 0 5px 0 #aaa;
+
+              &[data-status="op"] + p::before{
+                color: #080;
+                content: "販売中";
+              }
+
+              &[data-status="sh"] + p::before{
+                color: #ea0;
+                content: "品薄";
+              }
+
+              &[data-status="so"] + p::before{
+                color: #e00;
+                content: "品切れ";
+              }
+
+              &[data-status="no"] + p::before{
+                color: #080;
+                content: "営業中";
+              }
+
+              &[data-status="pa"] + p::before{
+                color: #ea0;
+                content: "休憩中";
+              }
+
+              &[data-status="en"] + p::before{
+                color: #e00;
+                content: "終了";
+              }
+            }
+
+            p{
+              display: block;
+              margin: 0;
+              font-size: 1.3em;
+              text-align: center;
+            }
+          }
+        }
+
+        &.pr1{
+          grid-template-areas: ". . ." ". i ." ". . .";
+          grid-template-rows: 1fr max-content 1fr;
+          grid-template-columns: 1fr max-content 1fr;
+
+          --size: calc(((100vh - 122px)));
+
+          .container{
+            grid-area: i;
+            font-size: calc(var(--size) * 0.05);
+          }
+        }
+      }
+    }
+  }
+
+  div.scrollBall{
+    grid-area: ball;
+    width: 100%;
+    height: 100%;
+
+    div.bContainer{
+      width: fit-content;
+      height: 100%;
+      margin: auto;
+
+      div.ball{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin: 8px 8px;
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 0 4px 0 #666;
+        transition: 1s;
+
+        &.showing{
+          background-color: #aaa;
+        }
+      }
+    }
+  }
+
+  marquee{
+    grid-area: news;
+    width: 100%;
+    height: 36px;
+    font-size: 24px;
+  }
+}

@@ -12,7 +12,7 @@
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "*.ts": [
+    "*.ts, *.tsx": [
       "eslint --fix"
     ],
     "*.scss": [
@@ -36,6 +36,8 @@
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.13.13",
     "@types/jquery": "^3.5.5",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
     "babel-loader": "^8.2.2",
