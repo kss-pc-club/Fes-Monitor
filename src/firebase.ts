@@ -1,7 +1,6 @@
-import 'firebase/firestore'
-
 import firebase from 'firebase/app'
-
+import 'firebase/firestore'
+import $ from 'jquery'
 import { firebaseConfig } from './firebaseConfig'
 import { show } from './react'
 import { ClassDataSnapshotType, dataJsonType, menuInfoType } from './type'
@@ -76,6 +75,11 @@ const loadData = () => {
       })
       show(data)
     })
+
+  database.collection('scrollInfo').doc('info').onSnapshot(snapshot=>{
+    const data = snapshot.data();
+    if(data && data.text) $('p.marquee').text(data.text)
+  })
 }
 
 export { loadData }
