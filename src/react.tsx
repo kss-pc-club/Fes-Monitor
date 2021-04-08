@@ -1,6 +1,6 @@
+import $ from 'jquery'
 import React from 'react'
 import ReactDOM from 'react-dom'
-
 import { createElem } from './functions'
 import { Render } from './render'
 import { dataJsonType } from './type'
@@ -8,6 +8,8 @@ import { dataJsonType } from './type'
 const prPage = 1
 
 function show(json: dataJsonType[]) {
+  $('.pages .page:not([class^=pr])').remove();
+  $('.scrollBall .bContainer .ball').remove();
   const pageCount =
     json.length % 6 === 0 ? json.length / 6 : Math.ceil(json.length / 6)
   for (let i = 0; i < pageCount; i++) {
