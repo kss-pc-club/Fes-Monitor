@@ -10,6 +10,7 @@ const prPage = 1
 function show(json: dataJsonType[]) {
   $('.pages .page:not([class^=pr])').remove();
   $('.scrollBall .bContainer .ball').remove();
+  $('.showing').removeClass('showing')
   const pageCount =
     json.length % 6 === 0 ? json.length / 6 : Math.ceil(json.length / 6)
   for (let i = 0; i < pageCount; i++) {
