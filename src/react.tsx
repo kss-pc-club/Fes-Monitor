@@ -1,13 +1,19 @@
 import $ from 'jquery'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createElem } from './functions'
+import { createElem, sleep } from './functions'
 import { Render } from './render'
+import { isAnimating } from './slide'
 import { dataJsonType } from './type'
 
 const prPage = 1
+let nowPageNum = 1
 
-function show(json: dataJsonType[]) {
+async function show(json: dataJsonType[]) {
+  if(isAnimating) await sleep(1000)
+  const nowShowingID = $('.page.showing').attr('id')
+  nowPageNum = nowShowingID ? Number(nowShowingID.split('p')[1]) : 1;
+  console.log(nowPageNum)
   $('.pages .page:not([class^=pr])').remove();
   $('.scrollBall .bContainer .ball').remove();
   $('.showing').removeClass('showing')
@@ -15,9 +21,6 @@ function show(json: dataJsonType[]) {
     json.length % 6 === 0 ? json.length / 6 : Math.ceil(json.length / 6)
   for (let i = 0; i < pageCount; i++) {
     const div = createElem('div', ['page'], `p${i + 1}`)
-    if (i === 0) {
-      div.classList.add('showing')
-    }
     const prPage1 = document.querySelector('div.pr1')
     if (prPage1) prPage1.insertAdjacentElement('beforebegin', div)
     const arr: dataJsonType[] = []
@@ -33,11 +36,10 @@ function show(json: dataJsonType[]) {
   for (let i = 0; i < pageCount + prPage; i++) {
     const e = document.querySelector('div.scrollBall div.bContainer')
     const b = createElem('div', ['ball'], `b${i + 1}`)
-    if (i === 0) {
-      b.classList.add('showing')
-    }
     if (e) e.insertAdjacentElement('beforeend', b)
   }
+  $(`.page#p${nowPageNum}`).addClass('showing');
+  $(`.ball#b${nowPageNum}`).addClass('showing')
 }
 
 export { show, prPage }

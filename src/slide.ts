@@ -1,9 +1,12 @@
-import $ from 'jquery'
+import $ from 'jquery';
+import { sleep } from './functions';
+import { prPage } from './react';
 
-import { sleep } from './functions'
-import { prPage } from './react'
+
+let isAnimating = false;
 
 const slide = async () => {
+  isAnimating = true;
   const $now = $('div.page.showing')
   const $next = $now.hasClass(`pr${prPage}`) ? $('div.page#p1') : $now.next()
   $now.animate({ left: -window.outerWidth }, 1000)
@@ -22,6 +25,8 @@ const slide = async () => {
   await sleep(1000)
   $now.removeClass('showing').removeAttr('style')
   $next.removeAttr('style')
+  isAnimating = false
 }
 
-export { slide }
+export { slide, isAnimating };
+
