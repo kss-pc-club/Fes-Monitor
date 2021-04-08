@@ -1,7 +1,9 @@
 //----- Firebase関連の処理 -----//
-import firebase from 'firebase/app'
 import 'firebase/firestore'
+
+import firebase from 'firebase/app'
 import $ from 'jquery'
+
 import { firebaseConfig } from './firebaseConfig'
 import { show } from './react'
 import { ClassDataSnapshotType, dataJsonType, menuInfoType } from './type'
@@ -12,11 +14,11 @@ const database = firebase.firestore()
 
 // 各クラスの模擬店情報
 class ClassData {
-  class: string  // クラス名・部活名
-  name: string  // 模擬店名
-  isFood: boolean  // 食販かどうか
-  menus: menuInfoType[]  // メニュー
-  time: string  // 待ち時間
+  class: string // クラス名・部活名
+  name: string // 模擬店名
+  isFood: boolean // 食販かどうか
+  menus: menuInfoType[] // メニュー
+  time: string // 待ち時間
 
   constructor(
     cls: string,
@@ -26,8 +28,8 @@ class ClassData {
     time: string
   ) {
     menus = menus.map((menu) => ({
-      icon: menu.icon,  // アイコンパス
-      status: menu.status,  // ステータス（op,sh,soのどれか）
+      icon: menu.icon, // アイコンパス
+      status: menu.status, // ステータス（op,sh,soのどれか）
     }))
 
     this.class = cls
@@ -36,7 +38,8 @@ class ClassData {
     this.menus = menus
     this.time = time
   }
-  format() {
+  // ReactでRenderできるObjectに成形
+  format(): dataJsonType {
     return {
       class: this.class,
       name: this.name,
@@ -45,11 +48,12 @@ class ClassData {
         src: menu.icon,
         status: menu.status,
       })),
-      isFood: this.isFood
+      isFood: this.isFood,
     }
   }
 }
 
+// 指定したものしか取得しないようにする（セキュリティの問題から）
 const converter = {
   toFirestore: () => ({}),
   fromFirestore: (
@@ -67,7 +71,8 @@ const converter = {
   },
 }
 
-const loadData = () => {
+const loadData = (): void => {
+  // クラス情報を取得し、更新時も自動で取得する
   database
     .collection('class')
     .withConverter(converter)
@@ -76,13 +81,17 @@ const loadData = () => {
       snapshot.forEach((doc) => {
         data.push(doc.data().format())
       })
-      show(data)
+      void show(data)
     })
 
-  database.collection('scrollInfo').doc('info').onSnapshot(snapshot=>{
-    const data = snapshot.data();
-    if(data && data.text) $('p.marquee').text(data.text)
-  })
+  // ページ下部の情報を取得
+  database
+    .collection('scrollInfo')
+    .doc('info')
+    .onSnapshot((snapshot) => {
+      const data = snapshot.data()
+      if (data && data.text) $('p.marquee').text(data.text)
+    })
 }
 
 export { loadData }

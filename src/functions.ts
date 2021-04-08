@@ -1,3 +1,5 @@
+//----- 共通で使う関数 -----//
+
 /**
  * document.createElement の拡張
  * @param tag - タグを指定
@@ -24,7 +26,7 @@ const createElem = (
 }
 
 /**
- * Intをフォーマットします
+ * 1桁の数字を0埋め
  * @param data - フォーマットする整数
  */
 const formatInt = (data: number): string => String(data).padStart(2, '0')

@@ -1,9 +1,17 @@
-import React from 'react';
-import { dataJsonType, IconInfo } from './type';
+//----- HTMLへの出力関連 -----//
 
-const notFoodMap = {op:"no",sh:"pa",so:"en"};
+import React from 'react'
 
-class Icons extends React.Component<dataJsonType, Record<string, unknown>> {
+import { dataJsonType, IconInfo } from './type'
+
+// 食販ではない場合のstatusの紐づけ（詳しくはmain.scss）
+const notFoodMap = { op: 'no', sh: 'pa', so: 'en' }
+
+class ColumnContainer extends React.Component<
+  dataJsonType,
+  Record<string, unknown>
+> {
+  // アイコンのコンテナを生成
   icon(i: IconInfo, f: boolean) {
     return (
       <div className="icons" data-num={i.length}>
@@ -13,7 +21,7 @@ class Icons extends React.Component<dataJsonType, Record<string, unknown>> {
               <img
                 className="icon"
                 src={'./icons/' + ico.src + '.png'}
-                data-status={f?ico.status:notFoodMap[ico.status]}
+                data-status={f ? ico.status : notFoodMap[ico.status]}
               />
               <p></p>
             </div>
@@ -22,12 +30,8 @@ class Icons extends React.Component<dataJsonType, Record<string, unknown>> {
       </div>
     )
   }
-  render() {
-    return this.icon(this.props.icons, this.props.isFood)
-  }
-}
 
-class ColumnContainer extends Icons {
+  // クラスの模擬店情報を生成
   render() {
     let e
     if (this.props.icons.length !== 0) {
@@ -44,8 +48,8 @@ class ColumnContainer extends Icons {
   }
 }
 
-function Render(json: { j: dataJsonType[] }) {
-  console.log(json)
+function Render(json: { j: dataJsonType[] }): JSX.Element {
+  // クラス情報からReact形式に変換する
   const Columns = json.j.map((c) => {
     return (
       <ColumnContainer
@@ -61,5 +65,4 @@ function Render(json: { j: dataJsonType[] }) {
   return <>{Columns}</>
 }
 
-export { Render };
-
+export { Render }
