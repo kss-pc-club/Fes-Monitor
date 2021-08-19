@@ -3,11 +3,11 @@
 import $ from 'jquery'
 import React from 'react'
 import ReactDOM from 'react-dom'
-
 import { createElem, sleep } from './functions'
 import { Render } from './render'
 import { isAnimating } from './slide'
 import { dataJsonType } from './type'
+
 
 const prPage = 1 // クラス情報とは別のページ（以下「PRページ」）の数
 
@@ -25,8 +25,7 @@ async function show(json: dataJsonType[]): Promise<void> {
   $('.showing').removeClass('showing')
 
   // ページを生成
-  const pageCount =
-    json.length % 6 === 0 ? json.length / 6 : Math.ceil(json.length / 6)
+  const pageCount = Math.ceil(json.length / 6)
   for (let i = 0; i < pageCount; i++) {
     // 全体の枠を生成 <div class="page" id="p1">みたいな
     const div = createElem('div', ['page'], `p${i + 1}`)
@@ -64,3 +63,4 @@ async function show(json: dataJsonType[]): Promise<void> {
 }
 
 export { show, prPage }
+
