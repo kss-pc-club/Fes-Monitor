@@ -1,12 +1,12 @@
 //----- Firebase関連の処理 -----//
-import firebase from 'firebase/app'
 import 'firebase/firestore'
+
+import firebase from 'firebase/app'
 import $ from 'jquery'
+
 import { firebaseConfig } from './firebaseConfig'
 import { show } from './react'
 import { ClassDataSnapshotType, dataJsonType, menuInfoType } from './type'
-
-
 
 firebase.initializeApp(firebaseConfig)
 
@@ -74,7 +74,7 @@ const converter = {
 const loadData = (): void => {
   // クラス情報を取得し、更新時も自動で取得する
   database
-    .collection('class')
+    .collection('class_info')
     .withConverter(converter)
     .onSnapshot((snapshot) => {
       const data: dataJsonType[] = []
@@ -86,8 +86,8 @@ const loadData = (): void => {
 
   // ページ下部の情報を取得
   database
-    .collection('scrollInfo')
-    .doc('info')
+    .collection('monitor')
+    .doc('scroll_info')
     .onSnapshot((snapshot) => {
       const data = snapshot.data()
       if (data && data.text) $('p.marquee').text(data.text)
@@ -95,4 +95,3 @@ const loadData = (): void => {
 }
 
 export { loadData }
-

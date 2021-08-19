@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "kss-monitor"
+    "default": "kss-festival-admin"
+  },
+  "targets": {
+    "kss-festival-admin": {
+      "hosting": {
+        "kss-fes-monitor": [
+          "kss-fes-monitor"
+        ]
+      }
+    }
   }
 }
