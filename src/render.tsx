@@ -1,11 +1,12 @@
 //----- HTMLへの出力関連 -----//
 
 import React from 'react'
-
 import { dataJsonType, IconInfo } from './type'
 
+
 // 食販ではない場合のstatusの紐づけ（詳しくはmain.scss）
-const notFoodMap = { op: 'no', sh: 'pa', so: 'en' }
+const FoodMap = ['op','sh','so']
+const notFoodMap = ['no', 'pa','en']
 
 class ColumnContainer extends React.Component<
   dataJsonType,
@@ -21,7 +22,7 @@ class ColumnContainer extends React.Component<
               <img
                 className="icon"
                 src={'./icons/' + ico.src + '.png'}
-                data-status={f ? ico.status : notFoodMap[ico.status]}
+                data-status={f ? FoodMap[ico.status] : notFoodMap[ico.status]}
               />
               <p></p>
             </div>
@@ -66,3 +67,4 @@ function Render(json: { j: dataJsonType[] }): JSX.Element {
 }
 
 export { Render }
+

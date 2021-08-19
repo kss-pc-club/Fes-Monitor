@@ -1,12 +1,12 @@
 //----- Firebase関連の処理 -----//
-import 'firebase/firestore'
-
 import firebase from 'firebase/app'
+import 'firebase/firestore'
 import $ from 'jquery'
-
 import { firebaseConfig } from './firebaseConfig'
 import { show } from './react'
 import { ClassDataSnapshotType, dataJsonType, menuInfoType } from './type'
+
+
 
 firebase.initializeApp(firebaseConfig)
 
@@ -29,7 +29,7 @@ class ClassData {
   ) {
     menus = menus.map((menu) => ({
       icon: menu.icon, // アイコンパス
-      status: menu.status, // ステータス（op,sh,soのどれか）
+      status: menu.status, // ステータス（0,1,2のどれか）
     }))
 
     this.class = cls
@@ -95,3 +95,4 @@ const loadData = (): void => {
 }
 
 export { loadData }
+

@@ -4,7 +4,7 @@
 type TimeUnitsType = 'h' | 'm' | 's'
 
 // 模擬店情報のステータス一覧
-type StatusType = 'op' | 'sh' | 'so'
+type StatusType = 0 | 1 | 2
 
 // アイコン情報
 type IconInfo = {
@@ -34,9 +34,6 @@ type ClassDataSnapshotType = {
   menus: {
     icon: string
     name: string
-    people: number
-    price: number
-    proceed: number
     status: StatusType
   }[]
   name: string
@@ -53,3 +50,4 @@ export {
   ClassDataSnapshotType,
   StatusType,
 }
+
