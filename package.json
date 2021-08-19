@@ -8,7 +8,7 @@
   "scripts": {
     "start": "firebase serve",
     "build": "webpack",
-    "prepare": "husky install",
+    "husky:prepare": "husky install",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
