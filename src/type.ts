@@ -1,4 +1,5 @@
 //----- 使用するタイプ一覧 -----//
+import { firebase } from './firebase'
 
 // timer.tsを参照
 type type_TimeUnits = 'h' | 'm' | 's'
@@ -42,6 +43,12 @@ type type_ClassDataSnapshot = {
   time: string
 }
 
+// Firebaseから取得する、文化祭の開始・終了時刻の情報
+type type_FestivalDuration = {
+  start: firebase.firestore.Timestamp
+  end: firebase.firestore.Timestamp
+}
+
 export {
   type_dataJson,
   type_IconInfo,
@@ -49,4 +56,5 @@ export {
   type_menuInfo,
   type_ClassDataSnapshot,
   type_Status,
+  type_FestivalDuration,
 }

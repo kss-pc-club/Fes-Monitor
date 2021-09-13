@@ -2,11 +2,9 @@
 
 import $ from 'jquery'
 
+import { festival_duration } from './firebase'
 import { formatInt } from './functions'
 import { type_TimeUnits } from './type'
-
-// 終了時刻を指定
-const endTime = { h: 14, m: 30 }
 
 /**
  * 現在時刻を表示します
@@ -21,21 +19,37 @@ const nowTimer = (): void => {
     $(`p.date span.${_}`).text(formatInt(t[_]))
   })
 
-  // 残り時間を表示する
-  let rm = endTime.m - t.m
-  let rh = endTime.h - t.h
-  if (rm < 0) {
-    rh--
-    rm += 60
-  }
-  $('p.remainDate span.h').text(formatInt(rh))
-  $('p.remainDate span.m').text(formatInt(rm))
-
-  // 時間が過ぎたら、メッセージを表示する
-  if (rh < 0) {
-    $('p.remainDate').text(
-      '文化祭は終了しました。本日はご来場、誠にありがとうございました！'
+  // 開始時刻前の処理
+  if (festival_duration.start > d) {
+    const rm = Math.ceil(
+      ((festival_duration.start.getTime() - d.getTime()) / (1000 * 60)) % 60
     )
+    const rh = Math.ceil(
+      (festival_duration.start.getTime() - d.getTime()) / (1000 * 60 * 60)
+    )
+    $('p.remainDate span.h').text(formatInt(rh) + '時間')
+    $('p.remainDate span.m').text(formatInt(rm) + '分')
+    $('p.remainDate span.txt').text('文化祭はまもなく開始します。開始まで')
+  }
+  // 終了時刻後の処理
+  else if (d > festival_duration.end) {
+    $('p.remainDate span.h').text('')
+    $('p.remainDate span.m').text('')
+    $('p.remainDate span.txt').text(
+      '文化祭は終了しました。本日はご来場ありがとうございました！'
+    )
+  }
+  // 文化祭中の処理
+  else {
+    const rm = Math.ceil(
+      ((festival_duration.end.getTime() - d.getTime()) / (1000 * 60)) % 60
+    )
+    const rh = Math.ceil(
+      (festival_duration.end.getTime() - d.getTime()) / (1000 * 60 * 60)
+    )
+    $('p.remainDate span.h').text(formatInt(rh) + '時間')
+    $('p.remainDate span.m').text(formatInt(rm) + '分')
+    $('p.remainDate span.txt').text('文化祭終了まで')
   }
 }
 

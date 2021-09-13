@@ -6,7 +6,12 @@ import $ from 'jquery'
 
 import { firebaseConfig } from './firebaseConfig'
 import { show } from './react'
-import { type_ClassDataSnapshot, type_dataJson, type_menuInfo } from './type'
+import {
+  type_ClassDataSnapshot,
+  type_dataJson,
+  type_FestivalDuration,
+  type_menuInfo,
+} from './type'
 
 firebase.initializeApp(firebaseConfig)
 
@@ -96,6 +101,16 @@ const loadData = (): void => {
       const data = snapshot.data()
       if (data && data.text) $('p.marquee').text(data.text)
     })
+
+  // 文化祭開始時刻・終了時刻を取得
+  database
+    .collection('festival_duration')
+    .doc('time')
+    .onSnapshot((snapshot) => {
+      const data = snapshot.data() as type_FestivalDuration
+      festival_duration.start = data.start.toDate()
+      festival_duration.end = data.end.toDate()
+    })
 }
 
-export { loadData }
+export { firebase, loadData, festival_duration }
