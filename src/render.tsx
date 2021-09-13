@@ -1,19 +1,19 @@
 //----- HTMLへの出力関連 -----//
 
 import React from 'react'
-import { dataJsonType, IconInfo } from './type'
 
+import { type_dataJson, type_IconInfo } from './type'
 
 // 食販ではない場合のstatusの紐づけ（詳しくはmain.scss）
-const FoodMap = ['op','sh','so']
-const notFoodMap = ['no', 'pa','en']
+const FoodMap = ['op', 'sh', 'so']
+const notFoodMap = ['no', 'pa', 'en']
 
 class ColumnContainer extends React.Component<
-  dataJsonType,
+  type_dataJson,
   Record<string, unknown>
 > {
   // アイコンのコンテナを生成
-  icon(i: IconInfo, f: boolean) {
+  icon(i: type_IconInfo, f: boolean) {
     return (
       <div className="icons" data-num={i.length}>
         {i.map((ico) => {
@@ -49,7 +49,7 @@ class ColumnContainer extends React.Component<
   }
 }
 
-function Render(json: { j: dataJsonType[] }): JSX.Element {
+function Render(json: { j: type_dataJson[] }): JSX.Element {
   // クラス情報からReact形式に変換する
   const Columns = json.j.map((c) => {
     return (
@@ -67,4 +67,3 @@ function Render(json: { j: dataJsonType[] }): JSX.Element {
 }
 
 export { Render }
-

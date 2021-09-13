@@ -3,15 +3,15 @@
 import $ from 'jquery'
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import { createElem, sleep } from './functions'
 import { Render } from './render'
 import { isAnimating } from './slide'
-import { dataJsonType } from './type'
-
+import { type_dataJson } from './type'
 
 const prPage = 1 // クラス情報とは別のページ（以下「PRページ」）の数
 
-async function show(json: dataJsonType[]): Promise<void> {
+async function show(json: type_dataJson[]): Promise<void> {
   // アニメーション中の場合は1秒待って表示を更新する
   if (isAnimating) await sleep(1000)
 
@@ -35,7 +35,7 @@ async function show(json: dataJsonType[]): Promise<void> {
     if (prPage1) prPage1.insertAdjacentElement('beforebegin', div)
 
     // 模擬店情報を格納
-    const arr: dataJsonType[] = []
+    const arr: type_dataJson[] = []
     for (let j = 0; j < (i == pageCount - 1 ? json.length - i * 6 : 6); j++) {
       arr.push(json[i * 6 + j])
     }
@@ -63,4 +63,3 @@ async function show(json: dataJsonType[]): Promise<void> {
 }
 
 export { show, prPage }
-

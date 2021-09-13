@@ -3,7 +3,7 @@
 import $ from 'jquery'
 
 import { formatInt } from './functions'
-import { TimeUnitsType } from './type'
+import { type_TimeUnits } from './type'
 
 // 終了時刻を指定
 const endTime = { h: 14, m: 30 }
@@ -16,7 +16,7 @@ const nowTimer = (): void => {
   const t = { h: d.getHours(), m: d.getMinutes(), s: d.getSeconds() } // 現在時刻のオブジェクト
 
   // 反映部分
-  const units: TimeUnitsType[] = ['h', 'm', 's']
+  const units: type_TimeUnits[] = ['h', 'm', 's']
   units.forEach((_) => {
     $(`p.date span.${_}`).text(formatInt(t[_]))
   })

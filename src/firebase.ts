@@ -6,25 +6,29 @@ import $ from 'jquery'
 
 import { firebaseConfig } from './firebaseConfig'
 import { show } from './react'
-import { ClassDataSnapshotType, dataJsonType, menuInfoType } from './type'
+import { type_ClassDataSnapshot, type_dataJson, type_menuInfo } from './type'
 
 firebase.initializeApp(firebaseConfig)
 
 const database = firebase.firestore()
+const festival_duration = {
+  start: new Date(),
+  end: new Date(),
+}
 
 // 各クラスの模擬店情報
 class ClassData {
   class: string // クラス名・部活名
   name: string // 模擬店名
   isFood: boolean // 食販かどうか
-  menus: menuInfoType[] // メニュー
+  menus: type_menuInfo[] // メニュー
   time: string // 待ち時間
 
   constructor(
     cls: string,
     name: string,
     isFood: boolean,
-    menus: menuInfoType[],
+    menus: type_menuInfo[],
     time: string
   ) {
     menus = menus.map((menu) => ({
@@ -39,7 +43,7 @@ class ClassData {
     this.time = time
   }
   // ReactでRenderできるObjectに成形
-  format(): dataJsonType {
+  format(): type_dataJson {
     return {
       class: this.class,
       name: this.name,
@@ -60,7 +64,7 @@ const converter = {
     snapshot: firebase.firestore.QueryDocumentSnapshot,
     options: firebase.firestore.SnapshotOptions
   ) => {
-    const data = snapshot.data(options) as ClassDataSnapshotType
+    const data = snapshot.data(options) as type_ClassDataSnapshot
     return new ClassData(
       data.class,
       data.name,
@@ -77,7 +81,7 @@ const loadData = (): void => {
     .collection('class_info')
     .withConverter(converter)
     .onSnapshot((snapshot) => {
-      const data: dataJsonType[] = []
+      const data: type_dataJson[] = []
       snapshot.forEach((doc) => {
         data.push(doc.data().format())
       })

@@ -1,40 +1,40 @@
 //----- 使用するタイプ一覧 -----//
 
 // timer.tsを参照
-type TimeUnitsType = 'h' | 'm' | 's'
+type type_TimeUnits = 'h' | 'm' | 's'
 
 // 模擬店情報のステータス一覧
-type StatusType = 0 | 1 | 2
+type type_Status = 0 | 1 | 2
 
 // アイコン情報
-type IconInfo = {
+type type_IconInfo = {
   src: string
-  status: StatusType
+  status: type_Status
 }[]
 
 // 各模擬店データ
-type dataJsonType = {
+type type_dataJson = {
   class: string
   name: string
   time: string
-  icons: IconInfo
+  icons: type_IconInfo
   isFood: boolean
 }
 
 // 模擬店のメニューで必要になる情報
-type menuInfoType = {
+type type_menuInfo = {
   icon: string
-  status: StatusType
+  status: type_Status
 }
 
 // Firebaseから取得する情報
-type ClassDataSnapshotType = {
+type type_ClassDataSnapshot = {
   class: string
   isFood: boolean
   menus: {
     icon: string
     name: string
-    status: StatusType
+    status: type_Status
   }[]
   name: string
   payProceeds: number
@@ -43,11 +43,10 @@ type ClassDataSnapshotType = {
 }
 
 export {
-  dataJsonType,
-  IconInfo,
-  TimeUnitsType,
-  menuInfoType,
-  ClassDataSnapshotType,
-  StatusType,
+  type_dataJson,
+  type_IconInfo,
+  type_TimeUnits,
+  type_menuInfo,
+  type_ClassDataSnapshot,
+  type_Status,
 }
-
