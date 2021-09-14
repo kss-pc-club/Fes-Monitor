@@ -1,7 +1,14 @@
 //----- Firebase関連の処理 -----//
-import 'firebase/firestore'
-
-import firebase from 'firebase/app'
+import { initializeApp } from 'firebase/app'
+import {
+  collection,
+  doc,
+  getFirestore,
+  onSnapshot,
+  query,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+} from 'firebase/firestore'
 import $ from 'jquery'
 
 import { firebaseConfig } from './firebaseConfig'
@@ -13,9 +20,9 @@ import {
   type_menuInfo,
 } from './type'
 
-firebase.initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
+const database = getFirestore(app)
 
-const database = firebase.firestore()
 const festival_duration = {
   start: new Date(),
   end: new Date(),
@@ -66,8 +73,8 @@ class ClassData {
 const converter = {
   toFirestore: () => ({}),
   fromFirestore: (
-    snapshot: firebase.firestore.QueryDocumentSnapshot,
-    options: firebase.firestore.SnapshotOptions
+    snapshot: QueryDocumentSnapshot,
+    options: SnapshotOptions
   ) => {
     const data = snapshot.data(options) as type_ClassDataSnapshot
     return new ClassData(
@@ -82,35 +89,29 @@ const converter = {
 
 const loadData = (): void => {
   // クラス情報を取得し、更新時も自動で取得する
-  database
-    .collection('class_info')
-    .withConverter(converter)
-    .onSnapshot((snapshot) => {
+  onSnapshot(
+    query(collection(database, 'class_info').withConverter(converter)),
+    (snapshot) => {
       const data: type_dataJson[] = []
       snapshot.forEach((doc) => {
         data.push(doc.data().format())
       })
       void show(data)
-    })
+    }
+  )
 
   // ページ下部の情報を取得
-  database
-    .collection('monitor')
-    .doc('scroll_info')
-    .onSnapshot((snapshot) => {
-      const data = snapshot.data()
-      if (data && data.text) $('p.marquee').text(data.text)
-    })
+  onSnapshot(doc(database, 'monitor', 'scroll_info'), (snapshot) => {
+    const data = snapshot.data()
+    if (data && data.text) $('p.marquee').text(data.text)
+  })
 
   // 文化祭開始時刻・終了時刻を取得
-  database
-    .collection('festival_duration')
-    .doc('time')
-    .onSnapshot((snapshot) => {
-      const data = snapshot.data() as type_FestivalDuration
-      festival_duration.start = data.start.toDate()
-      festival_duration.end = data.end.toDate()
-    })
+  onSnapshot(doc(database, 'festival_duration', 'time'), (snapshot) => {
+    const data = snapshot.data() as type_FestivalDuration
+    festival_duration.start = data.start.toDate()
+    festival_duration.end = data.end.toDate()
+  })
 }
 
-export { firebase, loadData, festival_duration }
+export { loadData, festival_duration }
