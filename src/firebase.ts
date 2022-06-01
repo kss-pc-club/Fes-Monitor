@@ -5,6 +5,7 @@ import {
   doc,
   getFirestore,
   onSnapshot,
+  orderBy,
   query,
   QueryDocumentSnapshot,
   SnapshotOptions,
@@ -90,7 +91,10 @@ const converter = {
 const loadData = (): void => {
   // クラス情報を取得し、更新時も自動で取得する
   onSnapshot(
-    query(collection(database, 'class_info').withConverter(converter)),
+    query(
+      collection(database, 'class_info').withConverter(converter),
+      orderBy('class', 'asc')
+    ),
     (snapshot) => {
       const data: type_dataJson[] = []
       snapshot.forEach((doc) => {
@@ -102,7 +106,7 @@ const loadData = (): void => {
 
   // ページ下部の情報を取得
   onSnapshot(doc(database, 'monitor', 'scroll_info'), (snapshot) => {
-    const data = snapshot.data()
+    const data = snapshot.data() as { text: string }
     if (data && data.text) $('p.marquee').text(data.text)
   })
 
