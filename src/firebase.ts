@@ -11,6 +11,7 @@ import {
   SnapshotOptions,
 } from 'firebase/firestore'
 import $ from 'jquery'
+import "jquery.marquee"
 
 import { firebaseConfig } from './firebaseConfig'
 import { show } from './react'
@@ -105,9 +106,21 @@ const loadData = (): void => {
   )
 
   // ページ下部の情報を取得
+  const $mqElem = ($('p.marquee') as any).marquee({
+    gap: 100,
+    speed: 1000,
+    duplicated: true,
+  })
   onSnapshot(doc(database, 'monitor', 'scroll_info'), (snapshot) => {
     const data = snapshot.data() as { text: string }
-    if (data && data.text) $('p.marquee').text(data.text)
+    if (data && data.text) {
+      $('p.marquee').text(data.text);
+      $mqElem.marquee("destroy").marquee({
+        gap: 100,
+        speed: 100,
+        duplicated: true,
+      })
+    }
   })
 
   // 文化祭開始時刻・終了時刻を取得

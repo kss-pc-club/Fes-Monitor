@@ -3014,6 +3014,11 @@ jju@~1.4.0:
   resolved "https://registry.yarnpkg.com/jju/-/jju-1.4.0.tgz#a3abe2718af241a2b2904f84a625970f389ae32a"
   integrity sha1-o6vicYryQaKykE+EpiWXDzia4yo=
 
+jquery.marquee@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/jquery.marquee/-/jquery.marquee-1.6.0.tgz#556f439aa82688da2201e570561e85893ee9a689"
+  integrity sha512-C4rQRivGRN5u259apY7+BvUcmWbVqgKIW5TjkRx0IBqRkfW07p8pf6J9iYrsw+thx78Pi5OGDmNF6IVdLRTXgg==
+
 jquery@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
@@ -3888,16 +3893,6 @@ schema-utils@^3.1.0, schema-utils@^3.1.1:
     "@types/json-schema" "^7.0.8"
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
-
-selenium-webdriver@4.0.0-rc-1:
-  version "4.0.0-rc-1"
-  resolved "https://registry.yarnpkg.com/selenium-webdriver/-/selenium-webdriver-4.0.0-rc-1.tgz#b1e7e5821298c8a071e988518dd6b759f0c41281"
-  integrity sha512-bcrwFPRax8fifRP60p7xkWDGSJJoMkPAzufMlk5K2NyLPht/YZzR2WcIk1+3gR8VOCLlst1P2PI+MXACaFzpIw==
-  dependencies:
-    jszip "^3.6.0"
-    rimraf "^3.0.2"
-    tmp "^0.2.1"
-    ws ">=7.4.6"
 
 selenium-webdriver@^4.0.0-beta.2:
   version "4.1.1"
