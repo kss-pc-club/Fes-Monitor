@@ -25,7 +25,7 @@ const nowTimer = (): void => {
       ((festival_duration.start.getTime() - d.getTime()) / (1000 * 60)) % 60
     )
     const rh = Math.ceil(
-      (festival_duration.start.getTime() - d.getTime()) / (1000 * 60 * 60)
+      (festival_duration.start.getTime() - d.getTime()) / (1000 * 60 * 60) - 1
     )
     $('p.remainDate span.h').text(formatInt(rh) + '時間')
     $('p.remainDate span.m').text(formatInt(rm) + '分')
@@ -45,7 +45,7 @@ const nowTimer = (): void => {
       ((festival_duration.end.getTime() - d.getTime()) / (1000 * 60)) % 60
     )
     const rh = Math.ceil(
-      (festival_duration.end.getTime() - d.getTime()) / (1000 * 60 * 60)
+      (festival_duration.end.getTime() - d.getTime()) / (1000 * 60 * 60) - 1
     )
     $('p.remainDate span.h').text(formatInt(rh) + '時間')
     $('p.remainDate span.m').text(formatInt(rm) + '分')
